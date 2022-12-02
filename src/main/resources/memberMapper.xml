@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dani.MemberMapper">
+
+<!-- 회원가입 -->
+<insert id="regMember" parameterType="com.kim.dani.Member">
+insert into dani_10_24_member values(dani_10_24_member_seq.nextval,#{name},#{id},#{pw})
+</insert>
+
+
+<!-- 로그인 -->
+<select id="login" resultType="com.kim.dani.Member">
+select*from dani_10_24_member where id=#{id} and pw=#{pw}
+</select>
+
+
+<!-- 울산채팅 write -->
+<insert id="regtalk" parameterType="com.kim.dani.ulsan.TalkDTO">
+insert into dani_10_24_talk values(dani_10_24_talk_seq.nextval,#{t_id},#{t_title},#{t_content},#{t_name},sysdate,default)
+</insert>
+
+<!-- 울산채팅 list 출력 -->
+<select id="selectTalk" resultType="com.kim.dani.ulsan.TalkDTO">
+select * from dani_10_24_talk order by t_n 
+</select>
+
+
+<update id="UlsanTalkCount" parameterType="com.kim.dani.ulsan.TalkDTO">
+update dani_10_24_talk set t_count = t_count+1 where t_n=#{t_n}
+</update>
+
+
+
+<!-- 울산채팅 read -->
+<select id="readTalk" resultType="com.kim.dani.ulsan.TalkDTO">
+select * from dani_10_24_talk where t_n=#{t_n}
+</select>
+
+<!-- 회원가입 아이디 중복 체크 -->
+<select id="signupcheck" resultType="com.kim.dani.ulsan.TalkDTO">
+select id from dani_10_24_member where id = #{id}
+</select>
+</mapper>
